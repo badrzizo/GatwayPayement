@@ -35,6 +35,7 @@ public class StripeService {
                 .build();
 
         /// Create a new line item with the above price data
+
         SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()
                 .setPriceData(priceData)
                 .setQuantity(productRequest.getQuantity())
