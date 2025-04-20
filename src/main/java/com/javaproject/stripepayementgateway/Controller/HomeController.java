@@ -1,4 +1,4 @@
-package com.javaproject.stripepayementgateway.Config;
+package com.javaproject.stripepayementgateway.Controller;
 
 
 import org.springframework.stereotype.Controller;

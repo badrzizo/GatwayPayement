@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/checkout")
+@RequestMapping("/api/v1")
 public class ProductCheckoutContoller {
 
     private StripeService stripeService;
@@ -24,11 +24,9 @@ public class ProductCheckoutContoller {
     @PostMapping("/checkout")
     public ResponseEntity<StripeResponse> checkoutProducts(@RequestBody ProductRequest productRequest) {
 
-        StripeResponse stripeResponse = stripeService.checkproductreqest(productRequest);
+        StripeResponse stripeResponse = stripeService.checkoutProducts(productRequest);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(stripeResponse);
     }
-
-
 }

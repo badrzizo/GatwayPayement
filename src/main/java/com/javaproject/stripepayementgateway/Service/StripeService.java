@@ -4,6 +4,7 @@ package com.javaproject.stripepayementgateway.Service;
 import com.javaproject.stripepayementgateway.dto.ProductRequest;
 import com.javaproject.stripepayementgateway.dto.StripeResponse;
 import com.stripe.exception.StripeException;
+
 import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.model.checkout.Session;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,24 +18,24 @@ public class StripeService {
     private String secretKey;
 
 
-    public StripeResponse checkproductreqest(ProductRequest productRequest)
+    public StripeResponse checkoutProducts(ProductRequest productRequest)
     {
-      Stripe.apiKey="stripe.api.key";
+        Stripe.apiKey= secretKey;
 
-        /// Create a PaymentIntent with the order amount and currencye
+
         SessionCreateParams.LineItem.PriceData.ProductData  productData = SessionCreateParams.LineItem.PriceData.ProductData.builder()
 
                 .setName(productRequest.getName())
                 .build();
 
-        /// Create new line item with the above product data and associated price
+
         SessionCreateParams.LineItem.PriceData priceData = SessionCreateParams.LineItem.PriceData.builder()
                 .setCurrency(productRequest.getCurrency() != null ? productRequest.getCurrency() : "USD")
                 .setUnitAmount(productRequest.getAmount())
                 .setProductData(productData)
                 .build();
 
-        /// Create a new line item with the above price data
+
 
         SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()
                 .setPriceData(priceData)
@@ -44,8 +45,8 @@ public class StripeService {
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
                 .addLineItem(lineItem)
-                .setSuccessUrl("https://example.com/success")
-                .setCancelUrl("https://example.com/cancel")
+                .setSuccessUrl("http://localhost:8080/success")
+                .setCancelUrl("http://localhost:8080/cancel")
                 .build();
 
 
